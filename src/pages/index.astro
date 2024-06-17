@@ -4,15 +4,19 @@ import Nav from '../layouts/Nav.astro';
 import Card from '../components/Card.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 
-const images = [
-  {src: '/public/images/finition3.jpg', alt: 'Finition chaux sable sur mur en chaux-chanvre'},
-  {src: '/public/images/finition1.jpg', alt: 'Finition chaux-chanvre'},
-  {src: '/public/images/finition2.jpg', alt: 'Finition chaux-chanvre'},
-  {src: '/public/images/banche2.jpg', alt: 'Isolation des murs en chaux chanvre'},
-  {src: '/public/images/banche3.jpg', alt: 'Isolation des murs en chaux chanvre'},
-  {src: '/public/images/dalle.jpg', alt: 'Dalle en béton chaux chanvre'},
+const response = await fetch('https://www.flickr.com/services/rest/?method=flickr.photos.search&user_id=200885194%40N02&api_key='+import.meta.env.FLICKR_API_KEY+ '&format=json&nojsoncallback=1&extras=description');
 
-];
+const photos = await response.json();
+
+//sort by title (1,2,4)
+const images =  photos.photos.photo.sort((a, b) => a.title - b.title).
+map(photo => {
+console.log(photo);
+return({
+  src: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
+  alt: photo.description._content
+  })});
+
 ---
 
 <Layout title="Chaux-Chanvre">
