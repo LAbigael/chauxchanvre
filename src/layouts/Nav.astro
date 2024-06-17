@@ -1,10 +1,10 @@
-<nav class="mx-4 flex flex-row  mt-8 mb-10">
-  <div class="w-1/2 lg:1/3 flex flex-col justify-center items-center">
+<nav class="mx-4 flex flex-row mb-10" style="height:100vh">
+  <div class="w-1/2 lg:w-1/3 flex flex-col justify-center items-center -translate-x-full opacity-0 left-nav">
     <h1 >CHAUX-CHANVRE</h1>
     <span class="subtitle">sud seine et marne</span>
     <span class="block lg:hidden text-center text-xs"> ISOLATION PAR ENDUIT, DALLE, MUR OU TOITURE </span>
   </div>
-  <div class="logo lg:1/3 w-1/2 flex flex-col items-center justify-center">
+  <div class="logo lg:w-1/3 w-1/2 flex flex-col items-center justify-center -translate-y-full opacity-0">
         <svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="1.588 24.263 100.549 109.648" width="200" height="139.231"><defs><style>
       .cls-11 {
         stroke-width: 2.05px;
@@ -24,7 +24,7 @@
   </div>
       <div
         id="toggleMenu"
-        class="hidden lg:grid logo  place-content-center w-10 h-12 mx-4 w-1/2 lg:1/3 my-auto"
+        class="hidden lg:block logo  place-content-center w-10 h-12 mx-4 w-1/2 lg:w-1/3 my-auto right-nav translate-x-full opacity-0"
       >
               ISOLATION PAR ENDUIT, DALLE, MUR OU TOITURE
         <div
@@ -73,12 +73,35 @@
       menu.classList.toggle("max-w-0");
   });
 
+  //after a few seconds make the navbar be 20% of the screen
+  setTimeout(() => {
+    document.querySelector('nav').style.height = '30vh';
+  }, 1000);
+  document.querySelector('.left-nav').style.opacity = '1';
+  document.querySelector('.left-nav').style.transform = 'translateX(0)';
+  document.querySelector('.right-nav').style.opacity = '1';
+  document.querySelector('.right-nav').style.transform = 'translateX(0)';
+  document.querySelector('.logo').style.opacity = '1';
+  document.querySelector('.logo').style.transform = 'translateY(0)';
+
+
+
 </script>
 
 <style>
   nav {
     color:  #222831;
     background-color: #EEEEEE;
+    @apply transition-all duration-500 ease-in-out;
+  }
+  .left-nav {
+    @apply transition-all duration-500 ease-in-out;
+  }
+  .right-nav {
+    @apply transition-all duration-500 ease-in-out;
+  }
+  .logo {
+    @apply transition-all duration-500 ease-in-out;
   }
   .menu {
     z-index: 500;

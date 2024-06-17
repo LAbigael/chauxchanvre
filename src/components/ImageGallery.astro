@@ -16,7 +16,7 @@ const { images } = Astro.props as Props;
 <style>
   .gallery {
     @apply mx-auto;
-    diaplay: flex;
+    display: flex;
     flex-wrap: wrap;
   }
 
@@ -26,6 +26,7 @@ const { images } = Astro.props as Props;
     width: 350px;
     aspect-ratio: 1 / 1; /* Ensure the container is a square */
     @apply mb-8 mx-auto;
+
   }
 
   @media (min-width: 768px) {
@@ -33,7 +34,8 @@ const { images } = Astro.props as Props;
       padding: 50px 250px 50px 250px;
     }
     .gallery-item {
-      width: 550px;
+      width: 45%;
+      @apply mx-auto;
       aspect-ratio: 1 / 1; /* Ensure the container is a square */
     }
   }
