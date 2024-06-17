@@ -1,0 +1,95 @@
+---
+// ImageGallery.astro
+
+export interface Image {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  images: Image[];
+}
+
+const { images } = Astro.props as Props;
+---
+
+<style>
+  .gallery {
+    @apply mx-auto;
+    diaplay: flex;
+    flex-wrap: wrap;
+  }
+
+  .gallery-item {
+    position: relative;
+    cursor: pointer;
+    width: 350px;
+    aspect-ratio: 1 / 1; /* Ensure the container is a square */
+    @apply mb-8 mx-auto;
+  }
+
+  @media (min-width: 768px) {
+    .gallery {
+      padding: 50px 250px 50px 250px;
+    }
+    .gallery-item {
+      width: 550px;
+      aspect-ratio: 1 / 1; /* Ensure the container is a square */
+    }
+  }
+
+  .gallery-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // fullscreen button open image in a modal
+    const fullscreenButtons = document.querySelectorAll('.fullscreen');
+    fullscreenButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const image = e.target.closest('.gallery-item').querySelector('img');
+        const modal = document.createElement('div');
+        modal.classList.add('fixed', 'top-0', 'left-0', 'w-screen', 'h-screen', 'bg-black', 'bg-opacity-90', 'flex', 'justify-center', 'items-center');
+        modal.innerHTML = `
+          <div class="flex flex-col ">
+          <img src="${image.src}" alt="${image.alt}" style="max-height:80vh" class="max-h-full max-w-full" />
+          <button type="button" class="absolute top-0 right-0 p-2 text-white" id="close">
+          <svg height="18px" version="1.1" viewBox="0 0 18 18" width="18px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="currentColor" id="Core" transform="translate(-511.000000, -465.000000)"><g id="close" transform="translate(511.000000, 465.000000)"><path d="M5.70710678,9 L0.853553391,4.14644661 C0.658291244,3.95118446 0.341708756,3.95118446 0.146446609,4.14644661 C-0.0488155374,4.34170876 -0.0488155374,4.65829124 0.146446609,4.85355339 L5,9.70710678 L0.146446609,14.5606602 C-0.0488155374,14.7559224 -0.0488155374,15.0725049 0.146446609,15.267767 C0.244184492,15.3655049 0.366025404,15.4142136 0.487866316,15.4142136 C0.609707229,15.4142136 0.731548141,15.3655049 0.829286014,15.267767 L5.70710678,10.3899454 L10.585,15.267767 C10.6827379,15.3655049 10.8045788,15.4142136 10.9264197,15.4142136 C11.0482606,15.4142136 11.1701015,15.3655049 11.2678394,15.267767 C11.4631016,15.0725049 11.4631016,14.7559224 11.2678394,14.5606602 L6.41421356,9.70710678 L11.2678394,4.85355339 C11.4631016,4.65829124 11.4631016,4.34170876 11.2678394,4.14644661 C11.0725772,3.95118446 10.7559947,3.95118446 10.5607326,4.14644661 L5.70710678,9 Z" id="Shape"/></g></g></g></svg>
+          </button>
+          <div>
+            <p class="text-white">----------------------------------------------</p>
+          <p class="text-white">${image.alt}</p>
+          </div>
+          </div>
+          `;
+        document.body.appendChild(modal);
+        const closeButton = modal.querySelector('#close');
+        closeButton.addEventListener('click', () => {
+          modal.remove();
+        });
+      });
+  })
+
+  });
+</script>
+
+<div class="snap-y   gallery">
+  {images.map((image, index) => (
+    <div class="snap-center snap-normal gallery-item" key={index}>
+      <img src={image.src} alt={image.alt} />
+      <button type="button" class="fullscreen absolute top-0 right-0 p-2 text-white  rotate-45">
+        <svg height="18px" version="1.1" viewBox="0 0 12 18" width="12px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="currentColor" id="Core" transform="translate(-511.000000, -465.000000)"><g id="unfold-more" transform="translate(511.500000, 465.000000)"><path d="M5,2.8 L8.2,6 L9.6,4.6 L5,0 L0.4,4.6 L1.8,6 L5,2.8 L5,2.8 Z M5,15.2 L1.8,12 L0.4,13.4 L5,18 L9.6,13.4 L8.2,12 L5,15.2 L5,15.2 Z" id="Shape"/></g></g></g></svg>
+      </button>
+      <div class="info">
+        <p>----------------------------------------------</p>
+        <p>{image.alt}</p>
+      </div>
+    </div>
+  ))}
+</div>
+

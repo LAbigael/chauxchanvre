@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../layouts/Nav.astro';
+import Card from '../components/Card.astro';
+import ImageGallery from '../components/ImageGallery.astro';
+
+const images = [
+  {src: '/public/images/finition3.jpg', alt: 'Finition chaux sable sur mur en chaux-chanvre'},
+  {src: '/public/images/finition1.jpg', alt: 'Finition chaux-chanvre'},
+  {src: '/public/images/finition2.jpg', alt: 'Finition chaux-chanvre'},
+  {src: '/public/images/banche2.jpg', alt: 'Isolation des murs en chaux chanvre'},
+  {src: '/public/images/banche3.jpg', alt: 'Isolation des murs en chaux chanvre'},
+  {src: '/public/images/dalle.jpg', alt: 'Dalle en béton chaux chanvre'},
+
+];
+---
+
+<Layout title="Chaux-Chanvre">
+<main>
+  <Nav/>
+  <ImageGallery images={images} />
+<footer class="flex flex-col items-center my-10">
+  <p>+33 6 99 02 67 02</p>
+  <a href="mailto:leomagrez@gmail.com" target="_blank">leomagrez@gmail.com</a>
+  <a href="https://maps.app.goo.gl/jA5Zje7EJZCAtMuy5" class="flex"><svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="24px" height="24px" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Larchant, sud 77</a>
+</footer>
+</main>
+</Layout>
+
+<style is:global>
+
+  html {
+    background-color: #EEEEEE;
+    margin: 0px;
+
+  }
+  footer {
+    font-family: 'Chaux Chanvre';
+    color: #222831;
+  }
+</style>
