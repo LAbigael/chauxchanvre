@@ -4,17 +4,26 @@ import Nav from '../layouts/Nav.astro';
 import Card from '../components/Card.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 
-const response = await fetch('https://www.flickr.com/services/rest/?method=flickr.photos.search&user_id=200885194%40N02&api_key='+import.meta.env.FLICKR_API_KEY+ '&format=json&nojsoncallback=1&extras=description');
+const photosets = await fetch('https://www.flickr.com/services/rest/?method=flickr.photosets.getList&user_id=200885194%40N02&api_key='+import.meta.env.FLICKR_API_KEY+ '&format=json&nojsoncallback=1');
+const sets = await photosets.json();
 
-const photos = await response.json();
+const photoset = sets.photosets.photoset[0];
+const photosetId = photoset.id;
 
+const photosFromSet = await fetch('https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&user_id=200885194%40N02&photoset_id='+photosetId+'&api_key='+import.meta.env.FLICKR_API_KEY+ '&format=json&nojsoncallback=1&extras=description');
+
+const photos = await photosFromSet.json();
+
+console.log(photos);
 //sort by title (1,2,4)
-const images =  photos.photos.photo.sort((a, b) => a.title - b.title).
+
+const images =  photos.photoset.photo.
 map(photo => {
-console.log(photo);
+
 return({
   src: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
-  alt: photo.description._content
+  alt: photo.description._content,
+  pos: photo.title
   })});
 
 ---

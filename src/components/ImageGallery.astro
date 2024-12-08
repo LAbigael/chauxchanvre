@@ -25,7 +25,7 @@ const { images } = Astro.props as Props;
     cursor: pointer;
     width: 350px;
     height: 350px;
-    @apply mb-16 mx-auto;
+    @apply mb-28 mx-auto;
   }
 
   @media (min-width: 768px) {
@@ -46,6 +46,15 @@ const { images } = Astro.props as Props;
     height: 100%;
     width: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .info {
+    position: absolute;
+    font-size: 1rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
     transition: transform 0.3s ease;
   }
 </style>
@@ -83,7 +92,8 @@ const { images } = Astro.props as Props;
 </script>
 
 <div class="snap-y   gallery">
-  {images.map((image, index) => (
+  {images.sort((a,b) => a.pos - b.pos).
+  map((image, index) => (
     <div class="snap-center snap-normal gallery-item" key={index}>
       <img src={image.src} alt={image.alt} />
       <button type="button" class="fullscreen absolute top-0 right-0 p-2 text-white  rotate-45">
