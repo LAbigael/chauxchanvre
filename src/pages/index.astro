@@ -31,10 +31,11 @@ return({
 <Layout title="Chaux-Chanvre">
 <main>
   <Nav/>
-  <div class="flex flex-col items-center my-5 footer text-xs">
-  <p>+33 6 99 02 67 02</p>
-  <a href="mailto:contact@chauxchaux.fr" target="_blank">contact@chauxchaux.fr</a>
+  <div class="flex flex-col items-center my-5 footer">
+  <p>+33 6 99 02 67 02  -  <a href="mailto:contact@chauxchaux.fr" target="_blank">contact@chauxchaux.fr</a>
+  </p>
   </div>
+  
   <ImageGallery images={images} />
 <footer class="flex flex-col items-center my-10">
   <p>+33 6 99 02 67 02</p>
@@ -52,6 +53,11 @@ return({
 
   }
   footer {
+    font-family: 'Chaux Chanvre';
+    color: #222831;
+  
+  }
+  .footer {
     font-family: 'Chaux Chanvre';
     color: #222831;
   
